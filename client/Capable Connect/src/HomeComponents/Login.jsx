@@ -3,8 +3,12 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { FaKey } from "react-icons/fa";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from "../context/UserProvider";
+import { useContext } from "react";
 
 export default function Login() {
+
+  const { loginUser } = useContext( UserContext );
 
   const navigate = useNavigate();
 
@@ -23,6 +27,9 @@ export default function Login() {
 
     if( res ){
       console.log(res);
+
+      loginUser( res.data.data );
+
       if( res.data.data.disability === "Blind" ){
         navigate('/chat-space');
       } else{
